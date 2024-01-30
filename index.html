@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Manager</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .password-entry {
+            cursor: pointer;
+        }
+
+        .password-details {
+            display: none;
+            margin-left: 20px;
+        }
+
+        /* Style for password entry */
+        .password-entry {
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 8px;
+        }
+
+        /* Style for password details */
+        .password-details {
+            display: none;
+            margin-left: 20px;
+            padding-left: 10px;
+            border-left: 2px solid #ddd;
+        }
+
+        /* Style for arrows */
+        .arrow {
+            display: inline-block;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Down-pointing triangle */
+        .arrow.down::before {
+            content: "\25BC";
+        }
+
+        /* Up-pointing triangle */
+        .arrow.up::before {
+            content: "\25B2";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Password Manager</h2>
+        <button onclick="toggleForm()">Create New</button>
+        <div id="passwordFormContainer" style="display:none;">
+            <form id="passwordForm">
+                <input type="text" id="website" name="website" placeholder="Website Name" required><br>
+                <input type="text" id="username" name="username" placeholder="Username" required><br>
+                <input type="password" id="password" name="password" placeholder="Password" required><br>
+                <button type="button" onclick="onSubmit()">Save</button>
+            </form>
+        </div>
+        <h3>Saved Passwords</h3>
+        <ul id="passwordList">
+            <!-- Passwords will be listed here -->
+        </ul>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

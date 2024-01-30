@@ -1,0 +1,103 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #282a36; /* Dracula background color */
+    color: #f8f8f2; /* Dracula foreground color */
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px;
+    border: 1px solid #44475a; /* Dracula selection color */
+    padding: 20px;
+    box-shadow: 0px 0px 10px #44475a; /* Dracula selection color */
+    background-color: #282a36; /* Dracula background color */
+    border-radius: 8px
+
+; /* Optional: rounded corners for the container */
+}
+
+input, button {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #44475a; /* Dracula selection color */
+    border: 1px solid #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    border-radius: 4px; /* Optional: rounded corners for inputs and buttons */
+}
+
+input::placeholder {
+    color: #f8f8f2; /* Dracula foreground color, with lower opacity */
+    opacity: 0.5;
+}
+
+input:focus, button:focus {
+    outline: none;
+    border-color: #50fa7b; /* Dracula green, for focus */
+}
+
+button {
+    background-color: #50fa7b; /* Dracula green */
+    color: #282a36; /* Dracula background color */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #64ff7b; /* A lighter Dracula green for hover */
+}
+
+.password-entry {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.password-details {
+    display: none;
+    background-color: #6272a4; /* Dracula comment color */
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 4px; /* Optional: rounded corners for password details */
+}
+
+.arrow {
+    display: inline-block;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.arrow.down::before {
+    content: "\25BC";
+    color: #f1fa8c; /* Dracula yellow */
+}
+
+.arrow.up::before {
+    content: "\25B2";
+    color: #f1fa8c; /* Dracula yellow */
+}
+
+button.delete-btn {
+    display: none; /* Initially hidden, will be shown when details are revealed */
+    background-color: #ff5555; /* Dracula red */
+    color: #f8f8f2; /* Dracula foreground color */
+    padding: 5px 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px; /* Optional: rounded corners for the delete button */
+    cursor: pointer;
+}
+
+button.delete-btn:hover {
+    background-color: #ff6e6e; /* A lighter Dracula red for hover */
+}
