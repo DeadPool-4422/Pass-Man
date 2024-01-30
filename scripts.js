@@ -25,12 +25,12 @@ function loadPasswords() {
     const passwordList = document.getElementById('passwordList');
     const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
     passwordList.innerHTML = '';
+    let isHoveringOverNotes = false; // Flag to prevent collapsing when hovering over notes
 
     passwords.forEach((entry, index) => {
         const li = document.createElement('li');
         li.classList.add('password-entry');
 
-        // Create a container for the entry number, arrow, and website name
         const entryHeader = document.createElement('div');
         entryHeader.classList.add('entry-header');
 
@@ -82,22 +82,119 @@ function loadPasswords() {
 
         li.appendChild(details);
 
+        // Container for the note elements
+        const noteContainer = document.createElement('div');
+        noteContainer.classList.add('note-container');
+        noteContainer.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent event from bubbling to the li element
+        });
+  
+          const noteDiv = document.createElement('div');
+          noteDiv.classList.add('note-div');
+          const noteSpan = document.createElement('span');
+          noteSpan.textContent = entry.note ? entry.note : 'No note added';
+          noteSpan.classList.add('note-text');
+          noteDiv.appendChild(noteSpan);
+  
+          // Note input field
+          const noteInput = document.createElement('input');
+          noteInput.type = 'text';
+          noteInput.value = entry.note || '';
+          noteInput.style.display = 'none';
+          noteInput.onclick = function(e) {
+              e.stopPropagation();
+          };
+          noteDiv.appendChild(noteInput);
+  
+// Save note button
+const saveNoteBtn = document.createElement('button');
+saveNoteBtn.textContent = 'Save';
+saveNoteBtn.classList.add('save-note-btn');
+saveNoteBtn.style.display = 'none';
+saveNoteBtn.onclick = function(e) {
+    e.stopPropagation();
+    updatePasswordNote(index, noteInput.value);
+
+    // Update the displayed note text directly
+    noteSpan.textContent = noteInput.value || 'No note added';
+    toggleNoteEditMode(false);
+
+    // Maintain the expanded state of the entry
+    if (li.expanded) {
+        details.style.display = 'block';
+    }
+
+    // Manage the visibility of elements
+    noteInput.style.display = 'none';
+    saveNoteBtn.style.display = 'none';
+    editNoteBtn.style.display = 'inline-block';
+    copyNoteBtn.style.display = 'inline-block';
+
+    // No need to refresh the entire password list
+    // Also, explicitly set the details section to be displayed
+    details.style.display = 'block';
+};
+noteDiv.appendChild(saveNoteBtn);
+
+          // Edit note button
+          const editNoteBtn = document.createElement('button');
+          editNoteBtn.textContent = 'Edit Note';
+          editNoteBtn.classList.add('edit-note-btn');
+          editNoteBtn.onclick = function(e) {
+              e.stopPropagation();
+              toggleNoteEditMode(true);
+          };
+          noteDiv.appendChild(editNoteBtn);
+  
+          // Copy note button
+          const copyNoteBtn = document.createElement('button');
+          copyNoteBtn.textContent = 'Copy';
+          copyNoteBtn.classList.add('copy-btn');
+          copyNoteBtn.style.display = 'none';
+          copyNoteBtn.onclick = function(e) {
+              e.stopPropagation();
+              navigator.clipboard.writeText(noteSpan.textContent);
+              alert('Note copied!');
+          };
+          noteDiv.appendChild(copyNoteBtn);
+  
+          // Append noteDiv to noteContainer
+          noteContainer.appendChild(noteDiv);
+  
+          // Append noteContainer to details
+          details.appendChild(noteContainer);
+  
+          // Append details to the list item
+          li.appendChild(details);
+  
+          // Function to toggle note edit mode
+          function toggleNoteEditMode(editMode) {
+              noteSpan.style.display = editMode ? 'none' : 'inline';
+              noteInput.style.display = editMode ? 'inline' : 'none';
+              saveNoteBtn.style.display = editMode ? 'inline' : 'none';
+              editNoteBtn.style.display = editMode ? 'none' : 'inline';
+              copyNoteBtn.style.display = editMode ? 'none' : 'inline';
+          } 
+
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
         deleteBtn.classList.add('delete-btn');
-        deleteBtn.style.display = 'none'; // Initially hide the delete button
+        deleteBtn.style.display = 'none';
         deleteBtn.onclick = function(e) {
-            e.stopPropagation(); // Prevent the li onclick event
+            e.stopPropagation();
             deletePassword(index);
         };
         li.appendChild(deleteBtn);
-
+        li.expanded = false;
         li.onclick = function() {
             const detailsVisible = details.style.display === 'block';
             details.style.display = detailsVisible ? 'none' : 'block';
-            copyUsernameBtn.style.display = detailsVisible ? 'none' : 'inline-block'; // Toggle copy button visibility
-            copyPasswordBtn.style.display = detailsVisible ? 'none' : 'inline-block'; // Toggle copy button visibility
-            deleteBtn.style.display = detailsVisible ? 'none' : 'inline-block'; // Toggle delete button visibility
+            noteInput.style.display = detailsVisible ? 'none' : 'none';
+            saveNoteBtn.style.display = detailsVisible ? 'none' : 'none';
+            copyUsernameBtn.style.display = detailsVisible ? 'none' : 'inline-block';
+            copyPasswordBtn.style.display = detailsVisible ? 'none' : 'inline-block';
+            copyNoteBtn.style.display = detailsVisible ? 'none' : 'inline-block';
+            deleteBtn.style.display = detailsVisible ? 'none' : 'inline-block';
             arrowSpan.classList.toggle('down', detailsVisible);
             arrowSpan.classList.toggle('up', !detailsVisible);
         };
@@ -106,9 +203,62 @@ function loadPasswords() {
     });
 }
 
-function savePassword(website, username, password) {
+function updatePasswordNote(index, note) {
     const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
-    passwords.push({ website, username, password });
+    if (passwords[index]) {
+        passwords[index].note = note;
+        localStorage.setItem('passwords', JSON.stringify(passwords));
+        // No call to loadPasswords here
+    }
+}
+
+function deletePassword(index) {
+    const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
+    passwords.splice(index, 1);
+    localStorage.setItem('passwords', JSON.stringify(passwords));
+    loadPasswords();
+}
+
+// Expose functions to the global scope if they are used by inline event handlers
+window.loadPasswords = loadPasswords;
+window.updatePasswordNote = updatePasswordNote;
+window.deletePassword = deletePassword;
+
+// Initial load of passwords
+document.addEventListener('DOMContentLoaded', loadPasswords);
+
+function updatePasswordNote(index, note) {
+    const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
+    if (passwords[index]) {
+        passwords[index].note = note;
+        localStorage.setItem('passwords', JSON.stringify(passwords));
+        loadPasswords(); // Refresh the list after updating the note
+    }
+}
+
+function refreshPasswordsKeepingState(passwordList) {
+    const expandedIndices = Array.from(passwordList.children)
+                                 .map((li, index) => li.expanded ? index : -1)
+                                 .filter(index => index !== -1);
+
+    loadPasswords(); // Reload all passwords
+
+    // Re-expand the previously expanded entries
+    expandedIndices.forEach(index => {
+        const li = passwordList.children[index];
+        if (li) {
+            li.expanded = true;
+            const details = li.querySelector('.password-details');
+            if (details) {
+                details.style.display = 'block';
+            }
+        }
+    });
+}
+
+function savePassword(website, username, password, note = '') {
+    const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
+    passwords.push({ website, username, password, note });
     localStorage.setItem('passwords', JSON.stringify(passwords));
 }
 

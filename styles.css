@@ -103,6 +103,20 @@ button.delete-btn:hover, button.copy-btn:hover {
     background-color: #79a9d1; /* A lighter blue for hover */
 }
 
+button.edit-note-btn {
+    background-color: #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button.edit-note-btn:hover {
+    background-color: #79a9d1; /* A lighter blue for hover */
+}
 
 .entry-header {
     display: flex;
@@ -150,4 +164,87 @@ button.delete-btn {
 
 button.delete-btn:hover {
     background-color: #ff6e6e; /* A lighter Dracula red for hover */
+}
+
+
+.note-text {
+    cursor: text;
+    user-select: text;
+}
+
+.copy-btn {
+    background-color: #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.copy-btn:hover {
+    background-color: #79a9d1; /* A lighter blue for hover */
+}
+
+
+
+/* Container for the note elements */
+.note-container {
+    border: 1px solid #50fa7b; /* Dracula green for the border */
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #44475a; /* Dracula selection color */
+    border-radius: 4px;
+}
+
+/* Input field for editing notes */
+.note-container input[type='text'] {
+    width: calc(100% - 20px); /* Subtract padding */
+    padding: 5px;
+    margin-top: 5px;
+    background-color: #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    border: 1px solid #f8f8f2; /* Light border for the input */
+    border-radius: 4px;
+}
+
+/* Note text styling */
+.note-text {
+    color: #f8f8f2; /* Dracula foreground color */
+    cursor: text;
+    user-select: text;
+}
+
+/* Copy and Edit Note buttons styling */
+.note-container .copy-btn,
+.note-container .edit-note-btn,
+.note-container .save-note-btn {
+    background-color: #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    border: none;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.note-container .copy-btn:hover,
+.note-container .edit-note-btn:hover,
+.note-container .save-note-btn:hover {
+    background-color: #79a9d1; /* A lighter blue for hover */
+}
+
+/* Note container and text styling */
+.note-container {
+    cursor: text; /* Set the cursor to text selector for the entire notes container */
+}
+
+.note-container * { /* Apply cursor style to all child elements */
+    cursor: inherit; /* Inherit the cursor style from the parent container */
+}
+
+.note-container button { /* Exclude buttons from inheriting the text cursor */
+    cursor: pointer; /* Ensure buttons show the pointer cursor */
 }
