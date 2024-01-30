@@ -29,22 +29,35 @@ function loadPasswords() {
     passwords.forEach((entry, index) => {
         const li = document.createElement('li');
         li.classList.add('password-entry');
-        
+
+        // Create a container for the entry number, arrow, and website name
+        const entryHeader = document.createElement('div');
+        entryHeader.classList.add('entry-header');
+
+        const entryNumber = document.createElement('span');
+        entryNumber.textContent = `${index + 1}.`;
+        entryNumber.style.fontWeight = 'bold';
+        entryHeader.appendChild(entryNumber);
+
         const arrowSpan = document.createElement('span');
         arrowSpan.classList.add('arrow', 'down');
-        li.appendChild(arrowSpan);
+        entryHeader.appendChild(arrowSpan);
 
         const textNode = document.createTextNode(` ${entry.website}`);
-        li.appendChild(textNode);
+        entryHeader.appendChild(textNode);
+
+        li.appendChild(entryHeader);
 
         const details = document.createElement('div');
         details.classList.add('password-details');
+        details.style.marginTop = '10px';
 
         // Create username and copy button
         const usernameDiv = document.createElement('div');
         usernameDiv.textContent = `Username: ${entry.username}`;
         const copyUsernameBtn = document.createElement('button');
         copyUsernameBtn.textContent = 'Copy';
+        copyUsernameBtn.classList.add('copy-btn');
         copyUsernameBtn.onclick = function(e) {
             e.stopPropagation();
             navigator.clipboard.writeText(entry.username);
@@ -58,7 +71,6 @@ function loadPasswords() {
         passwordDiv.textContent = `Password: ${entry.password}`;
         const copyPasswordBtn = document.createElement('button');
         copyPasswordBtn.textContent = 'Copy';
-        copyUsernameBtn.classList.add('copy-btn');
         copyPasswordBtn.classList.add('copy-btn');
         copyPasswordBtn.onclick = function(e) {
             e.stopPropagation();
@@ -83,9 +95,9 @@ function loadPasswords() {
         li.onclick = function() {
             const detailsVisible = details.style.display === 'block';
             details.style.display = detailsVisible ? 'none' : 'block';
-            copyUsernameBtn.style.display = detailsVisible ? 'none' : 'inline'; // Toggle copy button visibility
-            copyPasswordBtn.style.display = detailsVisible ? 'none' : 'inline'; // Toggle copy button visibility
-            deleteBtn.style.display = detailsVisible ? 'none' : 'inline'; // Toggle delete button visibility
+            copyUsernameBtn.style.display = detailsVisible ? 'none' : 'inline-block'; // Toggle copy button visibility
+            copyPasswordBtn.style.display = detailsVisible ? 'none' : 'inline-block'; // Toggle copy button visibility
+            deleteBtn.style.display = detailsVisible ? 'none' : 'inline-block'; // Toggle delete button visibility
             arrowSpan.classList.toggle('down', detailsVisible);
             arrowSpan.classList.toggle('up', !detailsVisible);
         };

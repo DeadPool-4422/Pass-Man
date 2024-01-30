@@ -71,6 +71,56 @@ button:hover {
     border-radius: 4px; /* Optional: rounded corners for password details */
 }
 
+#passwordList {
+    padding-left: 0; /* Remove default padding */
+    width: 100%;
+}
+
+.password-entry {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Spacing between elements inside the entry */
+}
+
+.password-entry:hover {
+    background-color: #565761; /* Slightly lighter background on hover */
+}
+
+button.delete-btn, button.copy-btn {
+    padding: 5px 10px;
+    background-color: #6272a4; /* Dracula comment color */
+    color: #f8f8f2; /* Dracula foreground color */
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    display: none; /* Initially hide the button */
+}
+
+button.delete-btn:hover, button.copy-btn:hover {
+    background-color: #79a9d1; /* A lighter blue for hover */
+}
+
+
+.entry-header {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    gap: 8px; /* Space between number, arrow, and website name */
+}
+
+.password-entry {
+    border: 1px solid #6272a4; /* Dracula comment color for border */
+    margin-bottom: 10px;
+    padding: 10px;
+    list-style: none; /* Remove default list styling */
+    background: #44475a; /* Dracula selection color */
+    border-radius: 4px; /* Optional: rounded corners */
+    cursor: pointer;
+}
+
+
 .arrow {
     display: inline-block;
     margin-left: 5px;
