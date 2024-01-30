@@ -3,48 +3,6 @@
 <head>
     <title>Password Manager</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <style>
-        .password-entry {
-            cursor: pointer;
-        }
-
-        .password-details {
-            display: none;
-            margin-left: 20px;
-        }
-
-        /* Style for password entry */
-        .password-entry {
-        cursor: pointer;
-        font-weight: bold;
-        margin-bottom: 8px;
-        }
-
-        /* Style for password details */
-        .password-details {
-            display: none;
-            margin-left: 20px;
-            padding-left: 10px;
-            border-left: 2px solid #ddd;
-        }
-
-        /* Style for arrows */
-        .arrow {
-            display: inline-block;
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Down-pointing triangle */
-        .arrow.down::before {
-            content: "\25BC";
-        }
-
-        /* Up-pointing triangle */
-        .arrow.up::before {
-            content: "\25B2";
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -60,7 +18,6 @@
         </div>
         <h3>Saved Passwords</h3>
         <ul id="passwordList">
-            <!-- Passwords will be listed here -->
         </ul>
     </div>
     <script src="scripts.js"></script>

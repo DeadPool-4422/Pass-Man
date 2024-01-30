@@ -4,13 +4,21 @@ function toggleForm() {
 }
 
 function onSubmit() {
-    const website = document.getElementById('website').value;
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const website = document.getElementById('website').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Check if any of the fields are empty
+    if (!website || !username || !password) {
+        alert('Please fill in all fields.');
+        return; // Do not proceed with saving
+    }
+
     savePassword(website, username, password);
     loadPasswords();
     alert('Password saved!');
     document.getElementById('passwordForm').reset();
+    toggleForm(); // Optionally hide the form after saving
 }
 
 function loadPasswords() {
@@ -29,26 +37,55 @@ function loadPasswords() {
         const textNode = document.createTextNode(` ${entry.website}`);
         li.appendChild(textNode);
 
+        const details = document.createElement('div');
+        details.classList.add('password-details');
+
+        // Create username and copy button
+        const usernameDiv = document.createElement('div');
+        usernameDiv.textContent = `Username: ${entry.username}`;
+        const copyUsernameBtn = document.createElement('button');
+        copyUsernameBtn.textContent = 'Copy';
+        copyUsernameBtn.onclick = function(e) {
+            e.stopPropagation();
+            navigator.clipboard.writeText(entry.username);
+            alert('Username copied!');
+        };
+        usernameDiv.appendChild(copyUsernameBtn);
+        details.appendChild(usernameDiv);
+
+        // Create password and copy button
+        const passwordDiv = document.createElement('div');
+        passwordDiv.textContent = `Password: ${entry.password}`;
+        const copyPasswordBtn = document.createElement('button');
+        copyPasswordBtn.textContent = 'Copy';
+        copyUsernameBtn.classList.add('copy-btn');
+        copyPasswordBtn.classList.add('copy-btn');
+        copyPasswordBtn.onclick = function(e) {
+            e.stopPropagation();
+            navigator.clipboard.writeText(entry.password);
+            alert('Password copied!');
+        };
+        passwordDiv.appendChild(copyPasswordBtn);
+        details.appendChild(passwordDiv);
+
+        li.appendChild(details);
+
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
+        deleteBtn.classList.add('delete-btn');
         deleteBtn.style.display = 'none'; // Initially hide the delete button
         deleteBtn.onclick = function(e) {
             e.stopPropagation(); // Prevent the li onclick event
             deletePassword(index);
         };
-
-        const details = document.createElement('div');
-        details.classList.add('password-details');
-        details.innerHTML = `Username: ${entry.username}<br>Password: ${entry.password}`;
-        li.appendChild(details);
-
-        li.appendChild(deleteBtn); // Append the delete button after the details div
+        li.appendChild(deleteBtn);
 
         li.onclick = function() {
             const detailsVisible = details.style.display === 'block';
             details.style.display = detailsVisible ? 'none' : 'block';
-            deleteBtn.style.display = detailsVisible ? 'none' : 'block'; // Toggle delete button visibility
-            deleteBtn.classList.add('delete-btn');
+            copyUsernameBtn.style.display = detailsVisible ? 'none' : 'inline'; // Toggle copy button visibility
+            copyPasswordBtn.style.display = detailsVisible ? 'none' : 'inline'; // Toggle copy button visibility
+            deleteBtn.style.display = detailsVisible ? 'none' : 'inline'; // Toggle delete button visibility
             arrowSpan.classList.toggle('down', detailsVisible);
             arrowSpan.classList.toggle('up', !detailsVisible);
         };
