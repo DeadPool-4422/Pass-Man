@@ -196,9 +196,6 @@ button.delete-btn:hover {
     margin-top: 10px;
     background-color: #44475a; /* Dracula selection color */
     border-radius: 4px;
-    overflow: hidden; /* Hide overflow */
-    min-height: 40px; /* Set a minimum height */
-    transition: height 0.3s ease; /* Smooth transition for height change */
 }
 
 /* Input field for editing notes */
