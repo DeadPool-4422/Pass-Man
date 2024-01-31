@@ -82,6 +82,11 @@ function loadPasswords() {
 
         li.appendChild(details);
 
+                // Add an event listener to the details container
+                details.addEventListener('click', function(event) {
+                    event.stopPropagation(); // This stops the event from bubbling up to the li element
+                });
+
         // Container for the note elements
         const noteContainer = document.createElement('div');
         noteContainer.classList.add('note-container');
@@ -113,7 +118,6 @@ saveNoteBtn.classList.add('save-note-btn');
 saveNoteBtn.style.display = 'none';
 saveNoteBtn.onclick = function(e) {
     e.stopPropagation();
-    updatePasswordNote(index, noteInput.value);
 
     // Update the displayed note text directly
     noteSpan.textContent = noteInput.value || 'No note added';
@@ -185,8 +189,15 @@ noteDiv.appendChild(saveNoteBtn);
             deletePassword(index);
         };
         li.appendChild(deleteBtn);
-        li.expanded = false;
-        li.onclick = function() {
+
+        li.onclick = function(event) {
+            // Check if the click is on a button
+            if (event.target.tagName === 'BUTTON') {
+                // Do not toggle if a button is clicked
+                return;
+            }
+        
+            // Toggle the details display
             const detailsVisible = details.style.display === 'block';
             details.style.display = detailsVisible ? 'none' : 'block';
             noteInput.style.display = detailsVisible ? 'none' : 'none';
@@ -197,7 +208,7 @@ noteDiv.appendChild(saveNoteBtn);
             deleteBtn.style.display = detailsVisible ? 'none' : 'inline-block';
             arrowSpan.classList.toggle('down', detailsVisible);
             arrowSpan.classList.toggle('up', !detailsVisible);
-        };
+        };              
 
         passwordList.appendChild(li);
     });
@@ -261,6 +272,31 @@ function savePassword(website, username, password, note = '') {
     passwords.push({ website, username, password, note });
     localStorage.setItem('passwords', JSON.stringify(passwords));
 }
+
+saveNoteBtn.onclick = function(e) {
+    e.stopPropagation();  // Add this line to stop event propagation
+
+    updatePasswordNote(index, noteInput.value);
+
+    // Update the displayed note text directly
+    noteSpan.textContent = noteInput.value || 'No note added';
+    toggleNoteEditMode(false);
+
+    // Maintain the expanded state of the entry
+    if (li.expanded) {
+        details.style.display = 'block';
+    }
+
+    // Manage the visibility of elements
+    noteInput.style.display = 'none';
+    saveNoteBtn.style.display = 'none';
+    editNoteBtn.style.display = 'inline-block';
+    copyNoteBtn.style.display = 'inline-block';
+
+    // No need to refresh the entire password list
+    // Also, explicitly set the details section to be displayed
+    details.style.display = 'block';
+};
 
 function deletePassword(index) {
     const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
