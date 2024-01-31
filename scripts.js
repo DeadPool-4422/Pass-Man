@@ -178,7 +178,17 @@ noteDiv.appendChild(saveNoteBtn);
               saveNoteBtn.style.display = editMode ? 'inline' : 'none';
               editNoteBtn.style.display = editMode ? 'none' : 'inline';
               copyNoteBtn.style.display = editMode ? 'none' : 'inline';
-          } 
+              // Adjust the height of the entry to fit the content
+    if (editMode) {
+        li.style.height = 'auto';
+    } else {
+        li.style.height = 'auto'; // Set to auto to grow with the new content size
+        // You might need to recalculate the size after the DOM has updated
+        setTimeout(() => {
+            li.style.height = li.scrollHeight + 'px';
+        }, 0);
+    }
+} 
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
