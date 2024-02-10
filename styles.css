@@ -10,52 +10,56 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #282a36; /* Dracula background color */
-    color: #f8f8f2; /* Dracula foreground color */
+    background-color: #050404; 
+    color: #ffffff; 
 }
 
 .container {
     width: 90%;
     max-width: 500px;
     margin: 20px;
-    border: 1px solid #44475a; /* Dracula selection color */
+    border: 1px solid #660000; 
     padding: 20px;
-    box-shadow: 0px 0px 10px #44475a; /* Dracula selection color */
-    background-color: #282a36; /* Dracula background color */
-    border-radius: 8px
+    box-shadow: 0px 0px 10px #660000; 
+    background-color: #360000;
+    border-radius: 8px;
+}
 
-; /* Optional: rounded corners for the container */
+.logo {
+    width: 120px;
+    height: auto;
+    transition: transform 0.3s ease;
 }
 
 input, button {
     width: calc(100% - 20px);
     margin-bottom: 10px;
     padding: 10px;
-    background-color: #44475a; /* Dracula selection color */
-    border: 1px solid #6272a4; /* Dracula comment color */
-    color: #f8f8f2; /* Dracula foreground color */
-    border-radius: 4px; /* Optional: rounded corners for inputs and buttons */
+    background-color: #990000; 
+    border: 1px solid #660000; 
+    color: #ffffff; 
+    border-radius: 4px;
 }
 
 input::placeholder {
-    color: #f8f8f2; /* Dracula foreground color, with lower opacity */
+    color: #ffffff; 
     opacity: 0.5;
 }
 
 input:focus, button:focus {
     outline: none;
-    border-color: #50fa7b; /* Dracula green, for focus */
+    border-color: #ffffff; 
 }
 
 button {
-    background-color: #50fa7b; /* Dracula green */
-    color: #282a36; /* Dracula background color */
+    background-color: #ffffff; 
+    color: #cc0000; 
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #64ff7b; /* A lighter Dracula green for hover */
+    background-color: #e6e6e6; 
 }
 
 .password-entry {
@@ -65,14 +69,14 @@ button:hover {
 
 .password-details {
     display: none;
-    background-color: #6272a4; /* Dracula comment color */
+    background-color: #360000; 
     padding: 8px;
     margin-top: 8px;
-    border-radius: 4px; /* Optional: rounded corners for password details */
+    border-radius: 4px; 
 }
 
 #passwordList {
-    padding-left: 0; /* Remove default padding */
+    padding-left: 0; 
     width: 100%;
 }
 
@@ -81,31 +85,31 @@ button:hover {
     transition: background-color 0.3s ease;
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Spacing between elements inside the entry */
+    gap: 8px; 
 }
 
 .password-entry:hover {
-    background-color: #565761; /* Slightly lighter background on hover */
+    background-color: #9b2727; /
 }
 
 button.delete-btn, button.copy-btn {
     padding: 5px 10px;
-    background-color: #6272a4; /* Dracula comment color */
-    color: #f8f8f2; /* Dracula foreground color */
+    background-color: #5a81a3; 
+    color: #f8f8f2; 
     border: none;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
-    display: none; /* Initially hide the button */
+    display: none; 
 }
 
 button.delete-btn:hover, button.copy-btn:hover {
-    background-color: #79a9d1; /* A lighter blue for hover */
+    background-color: #79a9d1; 
 }
 
 button.edit-note-btn {
-    background-color: #6272a4; /* Dracula comment color */
-    color: #f8f8f2; /* Dracula foreground color */
+    background-color: #5a81a3; 
+    color: #f8f8f2; 
     border: none;
     padding: 5px 10px;
     margin-left: 10px;
@@ -115,22 +119,22 @@ button.edit-note-btn {
 }
 
 button.edit-note-btn:hover {
-    background-color: #79a9d1; /* A lighter blue for hover */
+    background-color: #79a9d1; 
 }
 
 .entry-header {
     display: flex;
-    align-items: center; /* Align items vertically in the center */
-    gap: 8px; /* Space between number, arrow, and website name */
+    align-items: center; 
+    gap: 8px; 
 }
 
 .password-entry {
-    border: 1px solid #6272a4; /* Dracula comment color for border */
+    border: 1px solid #6272a4; 
     margin-bottom: 10px;
     padding: 10px;
-    list-style: none; /* Remove default list styling */
-    background: #44475a; /* Dracula selection color */
-    border-radius: 4px; /* Optional: rounded corners */
+    list-style: none; 
+    background: #360000; 
+    border-radius: 4px; 
     cursor: pointer;
 }
 
@@ -143,27 +147,27 @@ button.edit-note-btn:hover {
 
 .arrow.down::before {
     content: "\25BC";
-    color: #f1fa8c; /* Dracula yellow */
+    color: #f1fa8c; 
 }
 
 .arrow.up::before {
     content: "\25B2";
-    color: #f1fa8c; /* Dracula yellow */
+    color: #f1fa8c;
 }
 
 button.delete-btn {
-    display: none; /* Initially hidden, will be shown when details are revealed */
-    background-color: #ff5555; /* Dracula red */
-    color: #f8f8f2; /* Dracula foreground color */
+    display: none;
+    background-color: #ff5555; 
+    color: #f8f8f2; 
     padding: 5px 10px;
     margin-top: 10px;
     border: none;
-    border-radius: 4px; /* Optional: rounded corners for the delete button */
+    border-radius: 4px; 
     cursor: pointer;
 }
 
 button.delete-btn:hover {
-    background-color: #ff6e6e; /* A lighter Dracula red for hover */
+    background-color: #ff6e6e; 
 }
 
 
@@ -173,8 +177,8 @@ button.delete-btn:hover {
 }
 
 .copy-btn {
-    background-color: #6272a4; /* Dracula comment color */
-    color: #f8f8f2; /* Dracula foreground color */
+    background-color: #6272a4; 
+    color: #f8f8f2; 
     border: none;
     padding: 5px 10px;
     margin-left: 10px;
@@ -184,35 +188,35 @@ button.delete-btn:hover {
 }
 
 .copy-btn:hover {
-    background-color: #79a9d1; /* A lighter blue for hover */
+    background-color: #79a9d1; 
 }
 
 
 
 /* Container for the note elements */
 .note-container {
-    border: 1px solid #50fa7b; /* Dracula green for the border */
+    border: 1px solid #50b9fa; 
     padding: 10px;
     margin-top: 10px;
-    background-color: #44475a; /* Dracula selection color */
+    background-color: #2b4152; 
     border-radius: 4px;
-    overflow: hidden; /* Hide overflow */
+    overflow: hidden; 
 }
 
 /* Input field for editing notes */
 .note-container input[type='text'] {
-    width: calc(100% - 20px); /* Subtract padding */
+    width: calc(100% - 20px);
     padding: 5px;
     margin-top: 5px;
-    background-color: #6272a4; /* Dracula comment color */
-    color: #f8f8f2; /* Dracula foreground color */
-    border: 1px solid #f8f8f2; /* Light border for the input */
+    background-color: #6272a4; 
+    color: #f8f8f2; 
+    border: 1px solid #f8f8f2; 
     border-radius: 4px;
 }
 
 /* Note text styling */
 .note-text {
-    color: #f8f8f2; /* Dracula foreground color */
+    color: #f8f8f2; 
     cursor: text;
     user-select: text;
 }
@@ -221,8 +225,8 @@ button.delete-btn:hover {
 .note-container .copy-btn,
 .note-container .edit-note-btn,
 .note-container .save-note-btn {
-    background-color: #6272a4; /* Dracula comment color */
-    color: #f8f8f2; /* Dracula foreground color */
+    background-color: #6272a4; 
+    color: #f8f8f2; 
     border: none;
     margin-right: 5px;
     padding: 5px 10px;
@@ -234,18 +238,18 @@ button.delete-btn:hover {
 .note-container .copy-btn:hover,
 .note-container .edit-note-btn:hover,
 .note-container .save-note-btn:hover {
-    background-color: #79a9d1; /* A lighter blue for hover */
+    background-color: #79a9d1; 
 }
 
 /* Note container and text styling */
 .note-container {
-    cursor: text; /* Set the cursor to text selector for the entire notes container */
+    cursor: text; 
 }
 
-.note-container * { /* Apply cursor style to all child elements */
-    cursor: inherit; /* Inherit the cursor style from the parent container */
+.note-container * { 
+    cursor: inherit; 
 }
 
-.note-container button { /* Exclude buttons from inheriting the text cursor */
-    cursor: pointer; /* Ensure buttons show the pointer cursor */
+.note-container button { 
+    cursor: pointer; 
 }
